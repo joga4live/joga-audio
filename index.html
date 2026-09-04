@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Joga Audio — Escucha. Crece. Transforma.</title>
+<meta name="description" content="Audiobooks de crecimiento personal narrados con claridad y propósito. Mente, tiempo, hábitos, propósito, dinero y ventas." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="/" class="logo">JOGA AUDIO</a>
+    <div class="nav-links">
+      <a href="#catalog" class="nav-link" data-t="all_books"></a>
+      <a href="#pricing" class="nav-link" data-t="pricing_title"></a>
+      <button id="lang-toggle" class="btn-lang" onclick="toggleLang()">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-pattern"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">JOGA AUDIO</span>
+    <h1 class="hero-headline" data-t="tagline"></h1>
+    <p class="hero-sub" data-t="hero_sub"></p>
+    <div class="hero-ctas">
+      <a href="#catalog" class="btn-hero-primary" data-t="hero_cta"></a>
+      <a href="#pricing" class="btn-hero-secondary" data-t="hero_cta2"></a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">6</span>
+        <span class="stat-label">Audiobooks</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">46</span>
+        <span class="stat-label">Capítulos</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">24h+</span>
+        <span class="stat-label">Contenido</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator">
+    <span></span>
+  </div>
+</section>
+
+<!-- ── CATALOG ── -->
+<section class="catalog-section" id="catalog">
+  <div class="section-header">
+    <h2 data-t="catalog_title"></h2>
+    <p data-t="catalog_sub"></p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters" id="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all', this)" data-t="filter_all"></button>
+    <button class="filter-btn" onclick="setFilter('mind', this)" data-t="filter_mind"></button>
+    <button class="filter-btn" onclick="setFilter('time', this)" data-t="filter_time"></button>
+    <button class="filter-btn" onclick="setFilter('habits', this)" data-t="filter_habits"></button>
+    <button class="filter-btn" onclick="setFilter('purpose', this)" data-t="filter_purpose"></button>
+    <button class="filter-btn" onclick="setFilter('money', this)" data-t="filter_money"></button>
+    <button class="filter-btn" onclick="setFilter('sales', this)" data-t="filter_sales"></button>
+  </div>
+
+  <!-- Grid -->
+  <div class="catalog-grid" id="catalog-grid"></div>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="pricing-section" id="pricing">
+  <div class="section-header">
+    <h2 data-t="pricing_title"></h2>
+    <p data-t="pricing_sub"></p>
+  </div>
+  <div class="pricing-grid">
+    <!-- Single Book -->
+    <div class="pricing-card">
+      <div class="pricing-badge-top" data-t="free_badge"></div>
+      <h3 class="pricing-plan">Capítulo 1</h3>
+      <div class="pricing-price">$0</div>
+      <p class="pricing-desc">Primer capítulo de cualquier audiobook, sin costo. Conoce el método antes de comprometerte.</p>
+      <ul class="pricing-list">
+        <li>Capítulo 1 de todos los libros</li>
+        <li>Reproductor integrado</li>
+        <li>Sin tarjeta requerida</li>
+      </ul>
+      <a href="#catalog" class="btn-pricing btn-pricing-outline" data-t="plan_cta1"></a>
+    </div>
+    <!-- Single Book Paid -->
+    <div class="pricing-card">
+      <h3 class="pricing-plan" data-t="plan_single"></h3>
+      <div class="pricing-price" data-t="plan_single_price"></div>
+      <p class="pricing-desc" data-t="plan_single_desc"></p>
+      <ul class="pricing-list">
+        <li>Todos los capítulos del libro elegido</li>
+        <li>Acceso de por vida</li>
+        <li>Descarga offline disponible</li>
+        <li>Velocidad y marcadores</li>
+      </ul>
+      <a href="#catalog" class="btn-pricing btn-pricing-outline" data-t="plan_cta1"></a>
+    </div>
+    <!-- Full Library -->
+    <div class="pricing-card featured">
+      <div class="pricing-badge-top">Más popular</div>
+      <h3 class="pricing-plan" data-t="plan_all"></h3>
+      <div class="pricing-price" data-t="plan_all_price"></div>
+      <p class="pricing-desc" data-t="plan_all_desc"></p>
+      <ul class="pricing-list">
+        <li>Los 6 audiobooks actuales</li>
+        <li>Todos los libros futuros incluidos</li>
+        <li>Acceso prioritario a nuevos títulos</li>
+        <li>Descarga offline y velocidad</li>
+        <li>Garantía 7 días</li>
+      </ul>
+      <a href="#" class="btn-pricing btn-pricing-primary" data-t="plan_cta2"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUOTE ── -->
+<section class="quote-section">
+  <div class="quote-inner">
+    <blockquote>
+      "El libro que no lees no cambia tu vida.<br>
+      El que escuchas todos los días, sí."
+    </blockquote>
+    <cite>— Joga, fundador de Joga Intelligence</cite>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-logo">JOGA AUDIO</span>
+    <nav class="footer-nav">
+      <a href="https://joga4live.github.io/joga-intelligence/">Joga Intelligence</a>
+      <a href="#pricing">Planes</a>
+      <a href="#catalog">Biblioteca</a>
+    </nav>
+    <p class="footer-copy" data-t="footer_copy"></p>
+  </div>
+</footer>
+
+<!-- ── PLAYER PANEL ── -->
+<div class="player-panel" id="player-panel">
+  <div class="player-close" onclick="hidePlayer()">✕</div>
+  <div class="player-main">
+    <!-- Cover -->
+    <div class="player-cover" id="p-cover-color">
+      <div class="player-cover-accent" id="p-cover-accent"></div>
+      <div class="player-cover-label">JOGA AUDIO</div>
+    </div>
+    <!-- Info -->
+    <div class="player-info">
+      <h3 id="p-book-title">—</h3>
+      <p id="p-chapter-title">—</p>
+      <!-- Progress -->
+      <div class="player-progress">
+        <span id="p-current">0:00</span>
+        <input type="range" id="p-progress" min="0" max="100" value="0"
+               oninput="seekTo(this.value)" />
+        <span id="p-duration">0:00</span>
+      </div>
+      <!-- Controls -->
+      <div class="player-controls">
+        <button class="ctrl-btn" onclick="prevChapter()">⏮</button>
+        <button class="ctrl-btn ctrl-play" id="p-play-btn" onclick="togglePlay()">▶</button>
+        <button class="ctrl-btn" onclick="nextChapter()">⏭</button>
+      </div>
+      <!-- Speed -->
+      <div class="player-speed">
+        <span data-t="speed"></span>:
+        <span id="p-speed-label">1x</span>
+        <input type="range" min="0.5" max="2" step="0.25" value="1"
+               oninput="setSpeed(this.value)" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Gate overlay -->
+  <div class="player-gate" id="p-gate" style="display:none">
+    <div class="gate-inner">
+      <p data-t="free_preview_notice"></p>
+      <button class="btn-primary" data-t="get_full" onclick="location.href='#pricing'"></button>
+    </div>
+  </div>
+
+  <!-- Chapter list -->
+  <div class="player-chapter-list">
+    <ul id="p-chapter-list"></ul>
+  </div>
+</div>
+<div class="player-overlay" id="player-overlay" onclick="hidePlayer()"></div>
+
+<script src="i18n.js"></script>
+<script src="catalog.js"></script>
+<script src="player.js"></script>
+<script>
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Filter
+function setFilter(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCatalog(cat);
+}
+
+// Lang change handler
+function onLangChange() {
+  renderCatalog();
+  if (currentBook) renderChapterList();
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang();
+  renderCatalog();
+});
+</script>
+</body>
+</html>

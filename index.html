@@ -249,6 +249,7 @@ function onLangChange() {
   // pero dejaba sonando el audio del idioma anterior. loadChapter() ya llama a
   // renderChapterList() por dentro, y ahora tambien recarga el audio correcto.
   if (currentBook) loadChapter(currentChapter);
+  if (typeof jogaChatApplyLang === 'function') jogaChatApplyLang();
 }
 
 // Init

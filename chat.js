@@ -1,5 +1,4 @@
-// chat.js — Joga Audio chatbot widget
-// Reemplaza WORKER_URL con la URL de tu Cloudflare Worker después de desplegarlo
+// chat.js — Joga Audio chatbot widget (bilingüe ES/EN)
 (function () {
   'use strict';
 
@@ -7,30 +6,79 @@
   var history = [];
   var open = false;
 
+  var CHAT_STRINGS = {
+    es: {
+      name:        'Asistente Joga',
+      status:      'En línea',
+      placeholder: 'Escribe tu pregunta...',
+      open_label:  'Abrir chat',
+      close_label: 'Cerrar',
+      send_label:  'Enviar',
+      greeting:    '👋 Hola! Soy tu asistente Joga Audio. ¿Qué quieres mejorar: tu mente, tiempo, hábitos, propósito, dinero o ventas?',
+      error:       'No pude conectar. Revisa tu internet e intenta de nuevo.',
+      typing:      'Escribiendo...',
+    },
+    en: {
+      name:        'Joga Assistant',
+      status:      'Online',
+      placeholder: 'Type your question...',
+      open_label:  'Open chat',
+      close_label: 'Close',
+      send_label:  'Send',
+      greeting:    '👋 Hi! I\'m your Joga Audio assistant. What do you want to improve: mind, time, habits, purpose, money, or sales?',
+      error:       'Could not connect. Check your internet and try again.',
+      typing:      'Typing...',
+    }
+  };
+
+  function getLang() {
+    return localStorage.getItem('jiLang') || 'es';
+  }
+
+  function s(key) {
+    return CHAT_STRINGS[getLang()]?.[key] || CHAT_STRINGS.es[key];
+  }
+
   function init() {
     var wrap = document.createElement('div');
     wrap.id = 'joga-chat';
     wrap.innerHTML =
-      '<button class="jc-btn" id="jc-btn" onclick="jogaChatToggle()" aria-label="Abrir chat">' +
+      '<button class="jc-btn" id="jc-btn" onclick="jogaChatToggle()" aria-label="' + s('open_label') + '">' +
         '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor"/></svg>' +
       '</button>' +
       '<div class="jc-panel" id="jc-panel" role="dialog" aria-label="Chat Joga">' +
         '<div class="jc-header">' +
           '<div class="jc-avatar">J</div>' +
-          '<div class="jc-header-info"><div class="jc-name">Asistente Joga</div><div class="jc-status">En l&#237;nea</div></div>' +
-          '<button class="jc-close" onclick="jogaChatToggle()" aria-label="Cerrar">&#x2715;</button>' +
+          '<div class="jc-header-info">' +
+            '<div class="jc-name" id="jc-name">' + s('name') + '</div>' +
+            '<div class="jc-status" id="jc-status">' + s('status') + '</div>' +
+          '</div>' +
+          '<button class="jc-close" onclick="jogaChatToggle()" aria-label="' + s('close_label') + '">&#x2715;</button>' +
         '</div>' +
         '<div class="jc-messages" id="jc-messages">' +
-          '<div class="jc-msg jc-bot">&#128075; Hola! Soy tu asistente Joga Audio. &#191;Qu&#233; quieres mejorar: tu mente, tiempo, h&#225;bitos, prop&#243;sito, dinero o ventas?</div>' +
+          '<div class="jc-msg jc-bot" id="jc-greeting">' + s('greeting') + '</div>' +
         '</div>' +
         '<div class="jc-input-row">' +
-          '<input id="jc-input" type="text" placeholder="Escribe tu pregunta..." autocomplete="off" onkeydown="if(event.key===\'Enter\')jogaChatSend()"/>' +
-          '<button class="jc-send" onclick="jogaChatSend()" aria-label="Enviar">&#10148;</button>' +
+          '<input id="jc-input" type="text" placeholder="' + s('placeholder') + '" autocomplete="off" onkeydown="if(event.key===\'Enter\')jogaChatSend()"/>' +
+          '<button class="jc-send" onclick="jogaChatSend()" aria-label="' + s('send_label') + '">&#10148;</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(wrap);
     injectStyles();
   }
+
+  // Called by i18n.js onLangChange hook
+  window.jogaChatApplyLang = function () {
+    var el;
+    el = document.getElementById('jc-name');
+    if (el) el.textContent = s('name');
+    el = document.getElementById('jc-status');
+    if (el) el.textContent = s('status');
+    el = document.getElementById('jc-input');
+    if (el) el.placeholder = s('placeholder');
+    el = document.getElementById('jc-greeting');
+    if (el) el.textContent = s('greeting');
+  };
 
   function injectStyles() {
     var s = document.createElement('style');
@@ -75,7 +123,7 @@
     addMsg(text, 'user');
     input.value = '';
     history.push({ role: 'user', content: text });
-    var typing = addMsg('Escribiendo...', 'bot typing');
+    var typing = addMsg(s('typing'), 'bot typing');
     try {
       var res = await fetch(WORKER_URL, {
         method: 'POST',
@@ -84,12 +132,12 @@
       });
       var data = await res.json();
       typing.remove();
-      var reply = data.reply || 'Error al conectar. Intenta de nuevo.';
+      var reply = data.reply || s('error');
       addMsg(reply, 'bot');
       history.push({ role: 'assistant', content: reply });
     } catch (e) {
       typing.remove();
-      addMsg('No pude conectar. Revisa tu internet e intenta de nuevo.', 'bot');
+      addMsg(s('error'), 'bot');
     }
   };
 

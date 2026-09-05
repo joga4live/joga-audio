@@ -51,7 +51,9 @@ img { max-width: 100%; }
 .logo {
   font-family: var(--sans); font-weight: 600; letter-spacing: 0.2em;
   font-size: 0.8rem; color: var(--dark);
+  display: flex; align-items: center; gap: 0.5rem;
 }
+.logo-icon { width: 28px; height: 28px; object-fit: contain; display: block; }
 .nav-links { display: flex; align-items: center; gap: 2rem; }
 .nav-link {
   font-size: 0.75rem; letter-spacing: 0.12em; font-weight: 500;
@@ -321,6 +323,7 @@ cite { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--text-3); }
 }
 .footer-logo {
   font-size: 0.7rem; letter-spacing: 0.25em; font-weight: 600; color: var(--gold);
+  display: flex; align-items: center; gap: 0.6rem;
 }
 .footer-nav { display: flex; gap: 1.5rem; }
 .footer-nav a { font-size: 0.75rem; color: rgba(255,255,255,0.4); transition: color 0.2s; }

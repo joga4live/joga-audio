@@ -241,7 +241,10 @@ function setFilter(cat, btn) {
 // Lang change handler
 function onLangChange() {
   renderCatalog();
-  if (currentBook) renderChapterList();
+  // v2 (Nico, 5-sep): antes solo renderChapterList() — refrescaba los titulos
+  // pero dejaba sonando el audio del idioma anterior. loadChapter() ya llama a
+  // renderChapterList() por dentro, y ahora tambien recarga el audio correcto.
+  if (currentBook) loadChapter(currentChapter);
 }
 
 // Init

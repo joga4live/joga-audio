@@ -60,7 +60,10 @@ function loadChapter(idx) {
     return;
   }
   hideGate();
-  loadAudio(ch.audio);
+  // v2 (Nico, 5-sep): antes cargaba ch.audio sin ver el idioma — en ingles sonaba
+  // el mp3 en espanol igual, sin avisar. Sin audio_en grabado, cae en "coming_soon".
+  const audioSrc = lang === 'en' ? (ch.audio_en || '') : (ch.audio || '');
+  loadAudio(audioSrc);
 }
 
 function loadAudio(src) {
@@ -68,6 +71,9 @@ function loadAudio(src) {
   const playBtn = document.getElementById('p-play-btn');
   if (!src) {
     // v1 (Nico, 4-sep): antes se quedaba mudo — el boton parecia roto, sin avisar nada
+    // v2 (Nico, 5-sep): y encima no paraba el audio que ya sonaba — cambiabas a
+    // ingles sin grabacion y seguia oyendose el capitulo en español de fondo
+    if (audioEl) { audioEl.pause(); audioEl.removeAttribute('src'); audioEl.load(); }
     playBtn.textContent = '▶';
     playBtn.disabled = true;
     playBtn.title = t('coming_soon');

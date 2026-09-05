@@ -16,7 +16,7 @@ const CATALOG = [
     accent: '#7EC8A0',
     price: '$19 USD',
     chapters: [
-      { id: 1, title_es: 'El ruido que nunca para', title_en: 'The Noise That Never Stops', duration: '4min', free: true, audio: 'audio/claridad-mental/es/ch01.mp3' },
+      { id: 1, title_es: 'El ruido que nunca para', title_en: 'The Noise That Never Stops', duration: '4min', free: true, audio: 'audio/claridad-mental/es/ch01.mp3', audio_en: '' }, // v2 (Nico, 5-sep): en ingles no habia audio propio — sonaba el mp3 en espanol igual, sin avisar. Sin grabacion en ingles todavia; audio_en vacio activa el estado "coming_soon" que ya existe en player.js
       { id: 2, title_es: 'La arquitectura del pensamiento', title_en: 'The Architecture of Thought', duration: '5min', free: false, audio: '' }, // v1: mp3 real dura 4:52, no 35min; archivo retirado del repo publico (candado real pendiente de Worker, ver README)
       { id: 3, title_es: 'Foco sin esfuerzo', title_en: 'Effortless Focus', duration: '3min', free: false, audio: '' },
       { id: 4, title_es: 'Emociones como datos', title_en: 'Emotions as Data', duration: '5min', free: false, audio: '' },

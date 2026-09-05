@@ -44,8 +44,20 @@ function loadChapter(idx) {
   const title = lang === 'en' ? currentBook.title_en : currentBook.title_es;
   const chTitle = lang === 'en' ? ch.title_en : ch.title_es;
 
+  // v2 (Nico, 5-sep): antes cargaba ch.audio sin ver el idioma — en ingles sonaba
+  // el mp3 en espanol igual, sin avisar. v3: pero el capitulo GRATIS es la muestra
+  // para enganchar a cualquier visitante — dejarlo en silencio en ingles porque no
+  // hay grabacion todavia es peor que dejarlo sonar en espanol con aviso. Los
+  // capitulos de pago si caen en "coming_soon": no tiene sentido venderlos en un
+  // idioma que no tienen.
+  const wantsEnglishFallback = lang === 'en' && !ch.audio_en && ch.free && ch.audio;
+  const audioSrc = lang === 'en' ? (ch.audio_en || (ch.free ? ch.audio : '')) : (ch.audio || '');
+
+  let chapterTitleText = `${t('chapter')} ${ch.id} — ${chTitle}`;
+  if (wantsEnglishFallback) chapterTitleText += ` (${t('narrated_in_spanish')})`;
+
   document.getElementById('p-book-title').textContent = title;
-  document.getElementById('p-chapter-title').textContent = `${t('chapter')} ${ch.id} — ${chTitle}`;
+  document.getElementById('p-chapter-title').textContent = chapterTitleText;
   document.getElementById('p-cover-color').style.background = currentBook.color;
   document.getElementById('p-cover-accent').style.background = currentBook.accent;
   document.getElementById('p-progress').value = 0;
@@ -60,9 +72,6 @@ function loadChapter(idx) {
     return;
   }
   hideGate();
-  // v2 (Nico, 5-sep): antes cargaba ch.audio sin ver el idioma — en ingles sonaba
-  // el mp3 en espanol igual, sin avisar. Sin audio_en grabado, cae en "coming_soon".
-  const audioSrc = lang === 'en' ? (ch.audio_en || '') : (ch.audio || '');
   loadAudio(audioSrc);
 }
 

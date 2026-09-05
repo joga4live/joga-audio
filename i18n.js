@@ -45,6 +45,7 @@ const STRINGS = {
     stat_chapters: 'Capítulos',
     stat_narrated: 'Ya narrado',
     coming_soon: 'Próximamente',
+    narrated_in_spanish: 'narrado en español',
   },
   en: {
     tagline: 'Listen. Grow. Transform.',
@@ -89,6 +90,7 @@ const STRINGS = {
     stat_chapters: 'Chapters',
     stat_narrated: 'Narrated so far',
     coming_soon: 'Coming soon',
+    narrated_in_spanish: 'narrated in Spanish',
   }
 };
 

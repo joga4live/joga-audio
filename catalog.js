@@ -9,20 +9,21 @@ const CATALOG = [
     subtitle_es: 'Domina tu mente. Decide con precisión.',
     subtitle_en: 'Master your mind. Decide with precision.',
     author: 'Joga',
-    duration: '4h 28min',
+    duration: '32min', // v1 (Nico, 4-sep): eran "4h 28min" inventados; medidos los 8 mp3 reales con afinfo, suman 31.8min
     chapters_count: 8,
+    recorded: true, // v1: unico libro con audio real; controla que el catalogo muestre duracion en vez de "proximamente"
     color: '#2D4A3E',
     accent: '#7EC8A0',
     price: '$19 USD',
     chapters: [
-      { id: 1, title_es: 'El ruido que nunca para', title_en: 'The Noise That Never Stops', duration: '32min', free: true, audio: 'audio/claridad-mental/es/ch01.mp3' },
-      { id: 2, title_es: 'La arquitectura del pensamiento', title_en: 'The Architecture of Thought', duration: '35min', free: false, audio: 'audio/claridad-mental/es/ch02.mp3' },
-      { id: 3, title_es: 'Foco sin esfuerzo', title_en: 'Effortless Focus', duration: '28min', free: false, audio: 'audio/claridad-mental/es/ch03.mp3' },
-      { id: 4, title_es: 'Emociones como datos', title_en: 'Emotions as Data', duration: '34min', free: false, audio: 'audio/claridad-mental/es/ch04.mp3' },
-      { id: 5, title_es: 'Decisiones de alto impacto', title_en: 'High-Impact Decisions', duration: '36min', free: false, audio: 'audio/claridad-mental/es/ch05.mp3' },
-      { id: 6, title_es: 'La mente en descanso', title_en: 'The Resting Mind', duration: '30min', free: false, audio: 'audio/claridad-mental/es/ch06.mp3' },
-      { id: 7, title_es: 'Hábitos cognitivos', title_en: 'Cognitive Habits', duration: '29min', free: false, audio: 'audio/claridad-mental/es/ch07.mp3' },
-      { id: 8, title_es: 'Tu mente, tu ventaja', title_en: 'Your Mind, Your Edge', duration: '24min', free: false, audio: 'audio/claridad-mental/es/ch08.mp3' },
+      { id: 1, title_es: 'El ruido que nunca para', title_en: 'The Noise That Never Stops', duration: '4min', free: true, audio: 'audio/claridad-mental/es/ch01.mp3' },
+      { id: 2, title_es: 'La arquitectura del pensamiento', title_en: 'The Architecture of Thought', duration: '5min', free: false, audio: '' }, // v1: mp3 real dura 4:52, no 35min; archivo retirado del repo publico (candado real pendiente de Worker, ver README)
+      { id: 3, title_es: 'Foco sin esfuerzo', title_en: 'Effortless Focus', duration: '3min', free: false, audio: '' },
+      { id: 4, title_es: 'Emociones como datos', title_en: 'Emotions as Data', duration: '5min', free: false, audio: '' },
+      { id: 5, title_es: 'Decisiones de alto impacto', title_en: 'High-Impact Decisions', duration: '5min', free: false, audio: '' },
+      { id: 6, title_es: 'La mente en descanso', title_en: 'The Resting Mind', duration: '3min', free: false, audio: '' },
+      { id: 7, title_es: 'Hábitos cognitivos', title_en: 'Cognitive Habits', duration: '4min', free: false, audio: '' },
+      { id: 8, title_es: 'Tu mente, tu ventaja', title_en: 'Your Mind, Your Edge', duration: '3min', free: false, audio: '' },
     ]
   },
   {
@@ -36,6 +37,7 @@ const CATALOG = [
     author: 'Joga',
     duration: '3h 15min',
     chapters_count: 6,
+    recorded: false, // v1 (Nico, 4-sep): sin audio grabado; el catalogo muestra 'proximamente' en vez de horas inventadas
     color: '#3A2D4A',
     accent: '#B89FD4',
     price: '$19 USD',
@@ -59,6 +61,7 @@ const CATALOG = [
     author: 'Joga',
     duration: '5h 02min',
     chapters_count: 10,
+    recorded: false, // v1 (Nico, 4-sep): sin audio grabado; el catalogo muestra 'proximamente' en vez de horas inventadas
     color: '#4A2D2D',
     accent: '#D4907C',
     price: '$19 USD',
@@ -86,6 +89,7 @@ const CATALOG = [
     author: 'Joga',
     duration: '3h 48min',
     chapters_count: 7,
+    recorded: false, // v1 (Nico, 4-sep): sin audio grabado; el catalogo muestra 'proximamente' en vez de horas inventadas
     color: '#2D3A4A',
     accent: '#7CA8D4',
     price: '$19 USD',
@@ -110,6 +114,7 @@ const CATALOG = [
     author: 'Joga',
     duration: '4h 10min',
     chapters_count: 8,
+    recorded: false, // v1 (Nico, 4-sep): sin audio grabado; el catalogo muestra 'proximamente' en vez de horas inventadas
     color: '#3A4A2D',
     accent: '#A0C87E',
     price: '$19 USD',
@@ -135,6 +140,7 @@ const CATALOG = [
     author: 'Joga',
     duration: '3h 38min',
     chapters_count: 7,
+    recorded: false, // v1 (Nico, 4-sep): sin audio grabado; el catalogo muestra 'proximamente' en vez de horas inventadas
     color: '#4A3A2D',
     accent: '#D4B87C',
     price: '$19 USD',
@@ -167,20 +173,23 @@ function renderCard(book, lang) {
     <div class="book-info">
       <p class="book-subtitle">${subtitle}</p>
       <div class="book-meta">
-        <span>${book.duration}</span>
-        <span>·</span>
-        <span>${book.chapters_count} ${t('chapters')}</span>
+        ${book.recorded
+          ? `<span>${book.duration}</span><span>·</span><span>${book.chapters_count} ${t('chapters')}</span>`
+          : `<span>${book.chapters_count} ${t('chapters')}</span><span>·</span><span class="coming-soon-tag">${t('coming_soon')}</span>`}
       </div>
       <div class="book-actions">
         <button class="btn-primary" onclick="openPlayer('${book.id}', 1)">
-          <span data-t="listen"></span>
+          <span>${t('listen')}</span>
         </button>
-        <button class="btn-secondary" onclick="openBookDetail('${book.id}')">
+        <button class="btn-secondary" onclick="location.href='#pricing'">
           ${book.price}
         </button>
       </div>
     </div>
   </article>`;
+  // v1 (Nico, 4-sep): "openBookDetail" no existia en ningun archivo — el boton de precio
+  // tiraba un ReferenceError en consola y no hacia nada al click. No hay modal de detalle
+  // ni cobro real todavia, asi que se lleva a #pricing, igual que el boton del candado.
 }
 
 function renderCatalog(filter = 'all') {
@@ -189,7 +198,10 @@ function renderCatalog(filter = 'all') {
   if (!grid) return;
   const books = filter === 'all' ? CATALOG : CATALOG.filter(b => b.category === filter);
   grid.innerHTML = books.map(b => renderCard(b, lang)).join('');
-  applyLang();
+  // v1 (Nico, 4-sep): aqui llamaba a applyLang(), y applyLang() llama a onLangChange(),
+  // que vuelve a llamar a renderCatalog() -> recursion infinita en cada cambio de idioma
+  // (revienta con RangeError, silencioso porque el texto ya queda bien en la primera vuelta).
+  // renderCard ya interpola t('listen') directo, no necesita otra pasada de applyLang().
 }
 
 function getBook(id) {

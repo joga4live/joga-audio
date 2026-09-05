@@ -65,17 +65,23 @@ function loadChapter(idx) {
 
 function loadAudio(src) {
   initAudio();
+  const playBtn = document.getElementById('p-play-btn');
   if (!src) {
-    // No audio file yet — show placeholder state
-    document.getElementById('p-play-btn').textContent = '▶';
+    // v1 (Nico, 4-sep): antes se quedaba mudo — el boton parecia roto, sin avisar nada
+    playBtn.textContent = '▶';
+    playBtn.disabled = true;
+    playBtn.title = t('coming_soon');
+    document.getElementById('p-chapter-title').textContent += ` — ${t('coming_soon')}`;
     isPlaying = false;
     return;
   }
+  playBtn.disabled = false;
+  playBtn.title = '';
   audioEl.src = src;
   audioEl.playbackRate = playerSpeed;
   audioEl.play();
   isPlaying = true;
-  document.getElementById('p-play-btn').textContent = '⏸';
+  playBtn.textContent = '⏸';
 }
 
 function togglePlay() {
@@ -159,7 +165,8 @@ function renderChapterList() {
   list.innerHTML = currentBook.chapters.map((ch, i) => {
     const chTitle = lang === 'en' ? ch.title_en : ch.title_es;
     const activeClass = i === currentChapter ? 'active' : '';
-    const lockIcon = ch.free ? '' : '<span class="lock-icon">🔒</span>';
+    // v1 (Nico, 4-sep): era el emoji 🔒, contra la regla de cero emojis del proyecto
+    const lockIcon = ch.free ? '' : `<span class="lock-icon">${t('premium_badge')}</span>`;
     return `<li class="chapter-item ${activeClass}" onclick="selectChapter(${i})">
       <span class="ch-num">${ch.id}</span>
       <span class="ch-title">${chTitle}</span>

@@ -41,6 +41,10 @@ const STRINGS = {
     filter_money: 'Dinero',
     filter_sales: 'Ventas',
     filter_time: 'Tiempo',
+    stat_audiobooks: 'Audiolibros',
+    stat_chapters: 'Capítulos',
+    stat_narrated: 'Ya narrado',
+    coming_soon: 'Próximamente',
   },
   en: {
     tagline: 'Listen. Grow. Transform.',
@@ -81,6 +85,10 @@ const STRINGS = {
     filter_money: 'Money',
     filter_sales: 'Sales',
     filter_time: 'Time',
+    stat_audiobooks: 'Audiobooks',
+    stat_chapters: 'Chapters',
+    stat_narrated: 'Narrated so far',
+    coming_soon: 'Coming soon',
   }
 };
 

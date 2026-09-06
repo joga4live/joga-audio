@@ -14,7 +14,7 @@
       open_label:  'Abrir chat',
       close_label: 'Cerrar',
       send_label:  'Enviar',
-      greeting:    '👋 Hola! Soy tu asistente Joga Audio. ¿Qué quieres mejorar: tu mente, tiempo, hábitos, propósito, dinero o ventas?',
+      greeting:    'Hola, soy tu asistente Joga Audio. ¿Qué quieres mejorar: tu mente, tiempo, hábitos, propósito, dinero o ventas?', // v1 (Nico, 5-sep): tenia emoji, contra la regla de cero emojis del proyecto
       error:       'No pude conectar. Revisa tu internet e intenta de nuevo.',
       typing:      'Escribiendo...',
     },
@@ -25,7 +25,7 @@
       open_label:  'Open chat',
       close_label: 'Close',
       send_label:  'Send',
-      greeting:    '👋 Hi! I\'m your Joga Audio assistant. What do you want to improve: mind, time, habits, purpose, money, or sales?',
+      greeting:    'Hi, I\'m your Joga Audio assistant. What do you want to improve: mind, time, habits, purpose, money, or sales?',
       error:       'Could not connect. Check your internet and try again.',
       typing:      'Typing...',
     }
